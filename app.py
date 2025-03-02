@@ -4,7 +4,8 @@ import pandas as pd
 
 # Load the dataset
 vehicles = pd.read_csv('vehicles_us.csv')
-
+# Filter out outliers with price > 150000
+vehicles = vehicles[vehicles['price'] <= 150000]
 # Title
 st.title("Vehicle Analysis Dashboard")
 
@@ -92,6 +93,8 @@ if st.checkbox("Show Average Sale Price by Odometer Range", value=True):
 
 # Checkbox for Price vs. Model Year Scatter Plot
 if st.checkbox("Show Price vs. Model Year Scatter Plot", value=True):
+    
+
     # Scatter plot for Price vs. Model Year
     fig = px.scatter(
         vehicles,
@@ -101,12 +104,12 @@ if st.checkbox("Show Price vs. Model Year Scatter Plot", value=True):
         color_discrete_sequence=px.colors.qualitative.Set1,
         title='Price vs. Model Year',
         labels={'model_year': 'Model Year', 'price': 'Price'},
-         hover_data=['model', 'model_year', 'condition', 'price']  # Adding 'model' to hover data
-
+        hover_data=['model', 'model_year', 'condition', 'price', 'odometer', 'cylinders']  # Adding hover data
     )
 
     # Display in Streamlit
     st.plotly_chart(fig)
+
 
 
 # Checkbox for Price Distribution Histogram
