@@ -100,7 +100,9 @@ if st.checkbox("Show Price vs. Model Year Scatter Plot", value=True):
         color='condition',
         color_discrete_sequence=px.colors.qualitative.Set1,
         title='Price vs. Model Year',
-        labels={'model_year': 'Model Year', 'price': 'Price'}
+        labels={'model_year': 'Model Year', 'price': 'Price'},
+         hover_data=['model', 'model_year', 'condition', 'price']  # Adding 'model' to hover data
+
     )
 
     # Display in Streamlit
@@ -128,7 +130,9 @@ if st.checkbox("Show Price vs. Odometer Scatter Plot", value=True):
         color='fuel',
         color_discrete_sequence=px.colors.qualitative.Set1,
         title='Price vs. Odometer',
-        labels={'odometer': 'Odometer (miles)', 'price': 'Price'}
+        labels={'odometer': 'Odometer (miles)', 'price': 'Price'},
+         hover_data=['model']  # Adding 'model' to hover data
+
     )
     st.plotly_chart(fig)
 
