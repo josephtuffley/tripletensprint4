@@ -165,31 +165,12 @@ if st.checkbox("Show Days Listed Distribution Histogram", value=True):
 
 # Checkbox for Price by Vehicle Type Box Plot
 if st.checkbox("Show Price by Vehicle Type Box Plot", value=True):
-    # Calculate the IQR and filter out outliers for each vehicle type
-    def remove_outliers(df, column, group_by):
-        q1 = df.groupby(group_by)[column].quantile(0.25)
-        q3 = df.groupby(group_by)[column].quantile(0.75)
-        iqr = q3 - q1
-        lower_bound = q1 - 1.5 * iqr
-        upper_bound = q3 + 1.5 * iqr
-
-        # Use a mask to filter out rows outside the lower and upper bounds
-        filtered_df = df[
-            (df[column] >= df[group_by].map(lower_bound)) &
-            (df[column] <= df[group_by].map(upper_bound))
-            ]
-        return filtered_df
-
-
-    # Remove outliers based on the 'price' column for each 'type'
-    filtered_vehicles = remove_outliers(vehicles, column='price', group_by='type')
-
-    # Create the box plot with outliers removed
+  
     fig = px.box(
-        filtered_vehicles,
+        vehicles,
         x='type',
         y='price',
-        title='Price by Vehicle Type (Outliers Removed)',
+        title='Price by Vehicle Type',
         labels={'type': 'Vehicle Type', 'price': 'Price'},
         color='type',
         color_discrete_sequence=px.colors.qualitative.Set1,
