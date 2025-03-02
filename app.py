@@ -5,17 +5,18 @@ import pandas as pd
 # Load the dataset
 vehicles = pd.read_csv('vehicles_us.csv')
 # Filter out outliers with price > 100k and odometer > 500k
-vehicles = vehicles[vehicles['price'] <= 100000 & >= 100]
+vehicles = vehicles[vehicles['price'] <= 100000]
+vehicles = vehicles[vehicles['price'] >= 100]
 vehicles = vehicles[vehicles['odometer'] <= 500000]
 vehicles = vehicles[vehicles['model_year'] >= 1955]
 # Title
 st.title("Vehicle Analysis Dashboard")
 
 # Introduction
-st.header("Overview of Vehicle Price and Odometer Data")
+st.header("Overview of Vehicle Sales Data")
 st.write("""
 This dashboard provides an analysis of vehicle sales using the given dataset.
-Explore how vehicle condition and odometer readings affect the average sale price.
+Explore how vehicle condition, odometer readings and fuel types affect the average sale price.
 Use the checkboxes below to customize your view.
 """)
 
