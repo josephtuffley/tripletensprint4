@@ -1,7 +1,7 @@
 import plotly.express as px
 import streamlit as st
 import pandas as pd
-vehicles = pd.read_csv('/datasets/vehicles_us.csv')
+vehicles = pd.read_csv('vehicles_us.csv')
 st.title("Vehicle Analysis Dashboard")
 
 # Overview
