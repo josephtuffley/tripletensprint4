@@ -66,7 +66,8 @@ fig = px.scatter(
 )
 
 # Show the plot
-fig.show()
+st.plotly_chart(fig)
+
 
 # Histogram for Price Distribution
 fig = px.histogram(
@@ -79,7 +80,8 @@ color_discrete_sequence=['blue']
 )
 
 
-fig.show()
+st.plotly_chart(fig)
+
 
 # Scatter plot for Price vs. Odometer
 fig = px.scatter(
@@ -91,7 +93,8 @@ fig = px.scatter(
     title='Price vs. Odometer',
     labels={'odometer': 'Odometer (miles)', 'price': 'Price'}
 )
-fig.show()
+st.plotly_chart(fig)
+
 
 # Histogram for Condition Distribution
 fig = px.histogram(
@@ -101,7 +104,8 @@ fig = px.histogram(
     labels={'condition': 'Car Condition'},
     color_discrete_sequence=['green']
 )
-fig.show()
+st.plotly_chart(fig)
+
 
 # Group by 'condition' and calculate the average price
 average_price_by_condition = vehicles.groupby('condition')['price'].mean().reset_index()
@@ -124,7 +128,8 @@ fig = px.bar(
 # Format the text on bars and show the chart
 fig.update_traces(texttemplate='$%{text:.2f}', textposition='outside')
 fig.update_layout(yaxis_title='Average Sale Price ($)')
-fig.show()
+st.plotly_chart(fig)
+
 
 # Histogram for Days Listed Distribution
 fig = px.histogram(
@@ -135,7 +140,8 @@ fig = px.histogram(
     labels={'days_listed': 'Days Listed'},
     color_discrete_sequence=['orange']
 )
-fig.show()
+st.plotly_chart(fig)
+
 
 # Box plot for Price by Car Type
 fig = px.box(
@@ -148,6 +154,7 @@ fig = px.box(
 
     
 )
-fig.show()
+st.plotly_chart(fig)
+
 
 
