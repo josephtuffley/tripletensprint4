@@ -5,8 +5,9 @@ import pandas as pd
 # Load the dataset
 vehicles = pd.read_csv('vehicles_us.csv')
 # Filter out outliers with price > 100k and odometer > 500k
-vehicles = vehicles[vehicles['price'] <= 100000]
+vehicles = vehicles[vehicles['price'] <= 100000 & >= 100]
 vehicles = vehicles[vehicles['odometer'] <= 500000]
+vehicles = vehicles[vehicles['model_year'] >= 1955]
 # Title
 st.title("Vehicle Analysis Dashboard")
 
@@ -135,7 +136,7 @@ if st.checkbox("Show Price vs. Odometer Scatter Plot", value=True):
         color_discrete_sequence=px.colors.qualitative.Set1,
         title='Price vs. Odometer',
         labels={'odometer': 'Odometer (miles)', 'price': 'Price'},
-         hover_data=['model', 'model_year']  # Adding 'model' to hover data
+        hover_data=['model', 'model_year']  # Adding 'model' to hover data
 
     )
     st.plotly_chart(fig)
@@ -174,6 +175,7 @@ if st.checkbox("Show Price by Vehicle Type Box Plot", value=True):
         labels={'type': 'Vehicle Type', 'price': 'Price'},
         color='type',
         color_discrete_sequence=px.colors.qualitative.Set1,
+        hover_data=['model', 'model_year'], 
     )
     st.plotly_chart(fig)
 
