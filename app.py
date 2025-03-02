@@ -1,4 +1,7 @@
+import plotly.express as px
 import streamlit as st
+import pandas as pd
+vehicles = pd.read_csv('/datasets/vehicles_us.csv')
 st.title("Vehicle Analysis Dashboard")
 
 # Overview
@@ -48,3 +51,103 @@ fig_odometer = px.bar(
 
 # Display the chart
 st.plotly_chart(fig_odometer)
+
+
+
+# Scatter plot for Price vs. Model Year with Color by Condition
+fig = px.scatter(
+    vehicles,
+    x='model_year',
+    y='price',
+    color='condition',  # Color by condition
+     color_discrete_sequence=px.colors.qualitative.Set1,  # Explicit color palette
+    title='Price vs. Model Year',
+    labels={'model_year': 'Model Year', 'price': 'Price'}
+)
+
+# Show the plot
+fig.show()
+
+# Histogram for Price Distribution
+fig = px.histogram(
+vehicles,
+x='price',
+nbins=100,
+title='Price Distribution',
+labels={'price': 'Vehicle Price'},
+color_discrete_sequence=['blue']
+)
+
+
+fig.show()
+
+# Scatter plot for Price vs. Odometer
+fig = px.scatter(
+    vehicles,
+    x='odometer',
+    y='price',
+    color='fuel',
+     color_discrete_sequence=px.colors.qualitative.Set1,  # Explicit color palette
+    title='Price vs. Odometer',
+    labels={'odometer': 'Odometer (miles)', 'price': 'Price'}
+)
+fig.show()
+
+# Histogram for Condition Distribution
+fig = px.histogram(
+    vehicles,
+    x='condition',
+    title='Condition Distribution',
+    labels={'condition': 'Car Condition'},
+    color_discrete_sequence=['green']
+)
+fig.show()
+
+# Group by 'condition' and calculate the average price
+average_price_by_condition = vehicles.groupby('condition')['price'].mean().reset_index()
+
+# Rename columns for better readability
+average_price_by_condition.columns = ['Condition', 'Average Price']
+
+# Create a bar chart to show the average price
+fig = px.bar(
+    average_price_by_condition,
+    x='Condition',
+    y='Average Price',
+    title='Average Price by Vehicle Condition',
+    text='Average Price',  # Display the average price as text on the bars
+    labels={'Condition': 'Vehicle Condition', 'Average Price': 'Average Price ($)'},
+    color='Condition',
+    color_discrete_sequence=px.colors.qualitative.Set1,  # Explicit color palette
+)
+
+# Format the text on bars and show the chart
+fig.update_traces(texttemplate='$%{text:.2f}', textposition='outside')
+fig.update_layout(yaxis_title='Average Sale Price ($)')
+fig.show()
+
+# Histogram for Days Listed Distribution
+fig = px.histogram(
+    vehicles,
+    x='days_listed',
+    nbins=30,
+    title='Days Listed Distribution',
+    labels={'days_listed': 'Days Listed'},
+    color_discrete_sequence=['orange']
+)
+fig.show()
+
+# Box plot for Price by Car Type
+fig = px.box(
+    vehicles,
+    x='type',
+    y='price',
+    title='Price by Vehicle Type',
+    labels={'type': 'Vehicle Type', 'price': 'Price'},
+    color='type', color_discrete_sequence=px.colors.qualitative.Set1,  # Explicit color palette
+
+    
+)
+fig.show()
+
+
