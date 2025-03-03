@@ -9,7 +9,7 @@ vehicles = vehicles[vehicles['price'] <= 100000]
 vehicles = vehicles[vehicles['price'] >= 100]
 vehicles = vehicles[vehicles['odometer'] <= 500000]
 vehicles = vehicles[vehicles['model_year'] >= 1955]
-vehicles['is_4WD'] = vehicles['is_4WD'].fillna(0).astype(int)
+vehicles['is_4wd'] = vehicles['is_4wd'].fillna(0).astype(int)
 vehicles['paint_color'] = vehicles['paint_color'].fillna('Unknown')
 vehicles['model_year'] = vehicles['model_year'].fillna(
     vehicles.groupby('model')['model_year'].transform('median')
