@@ -2,6 +2,8 @@
 tripleten.com sprint 4 project
 githhub link: https://github.com/josephtuffley/tripletensprint4
 render link: https://tripletensprint4-v7kc.onrender.com
+if you wish to run locally, download the package and run the following in a terminal window:
+"pip install streamlit", install the tool then run the app using the following "streamlit run app.py"
 
 This dashboard provides an analysis of vehicle sales using the given dataset. Within the app you will find many graphs that offer insights into trends for prices, odometer readings, and conditions. some of which are:
 
