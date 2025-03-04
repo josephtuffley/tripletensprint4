@@ -5,6 +5,18 @@ import pandas as pd
 # Load the dataset
 vehicles = pd.read_csv('vehicles_us.csv')
 # Filter out outliers and erronious data
+
+#grouping for missing vehicle data
+vehicles['model_year'] = vehicles['model_year'].fillna( 
+    vehicles.groupby('model')['model_year'].transform('median')
+)
+vehicles['odometer'] = vehicles['odometer'].fillna(
+    vehicles.groupby('model')['odometer'].transform('median')
+)
+vehicles['cylinders'] = vehicles['cylinders'].fillna(
+    vehicles.groupby('model')['cylinders'].transform(lambda x: x.mode()[0] if not x.mode().empty else None)
+)
+
 vehicles['is_4wd'] = vehicles['is_4wd'].fillna(0).astype(int)
 vehicles['paint_color'] = vehicles['paint_color'].fillna('Unknown')
 vehicles['odometer'] = vehicles['odometer'].fillna(0).astype(int)
@@ -16,17 +28,6 @@ vehicles = vehicles[vehicles['model_year'] >= 1955]
 vehicles['is_4wd'] = vehicles['is_4wd'].fillna(0).astype(int)
 vehicles['paint_color'] = vehicles['paint_color'].fillna('Unknown')
 
-
-#grouping vehicle data
-vehicles['model_year'] = vehicles['model_year'].fillna( 
-    vehicles.groupby('model')['model_year'].transform('median')
-)
-vehicles['odometer'] = vehicles['odometer'].fillna(
-    vehicles.groupby('model')['odometer'].transform('median')
-)
-vehicles['cylinders'] = vehicles['cylinders'].fillna(
-    vehicles.groupby('model')['cylinders'].transform(lambda x: x.mode()[0] if not x.mode().empty else None)
-)
 
 # Title
 st.title("Vehicle Analysis Dashboard")
