@@ -5,9 +5,9 @@ import pandas as pd
 # Load the dataset
 vehicles = pd.read_csv('vehicles_us.csv')
 # Filter out outliers and erronious data
-vehicles['is_4wd'] = vehicles['is_4wd'].fillna(0.0)
+vehicles['is_4wd'] = vehicles['is_4wd'].fillna(0).astype(int)
 vehicles['paint_color'] = vehicles['paint_color'].fillna('Unknown')
-vehicles['odometer'] = vehicles['odometer'].fillna(0.0)
+vehicles['odometer'] = vehicles['odometer'].fillna(0).astype(int)
 vehicles['model_year'] = vehicles['model_year'].fillna(1955) #this value was placed to preserve data
 vehicles = vehicles[vehicles['price'] <= 100000]
 vehicles = vehicles[vehicles['price'] >= 100]
